@@ -1,0 +1,23 @@
+@mixin _ini-center($flex-direction: row) {
+  display: flex;
+  flex-direction: $flex-direction;
+}
+
+@mixin center($flex-direction: row) {
+  /*水平・垂直中央*/
+  @include center-horizontal($flex-direction);
+  @include center-vertical($flex-direction);
+}
+
+@mixin center-horizontal($flex-direction: row) {
+  /*水平中央*/
+  @include _ini-center($flex-direction);
+  justify-content: center;
+}
+
+@mixin center-vertical($flex-direction: row) {
+  /*垂直中央*/
+  @include _ini-center($flex-direction);
+  align-items: center;
+}
+
