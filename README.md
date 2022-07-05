@@ -5,6 +5,8 @@
 - アプリ名: dot.Task
 - 内容: ToDo アプリ
 
+https://user-images.githubusercontent.com/99755034/177383910-8d8ce9ae-2b8f-44b9-96e5-d57cd29dc497.mp4
+
 <br>
 
 ## 学習・開発期間
