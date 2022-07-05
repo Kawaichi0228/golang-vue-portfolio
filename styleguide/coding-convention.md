@@ -15,7 +15,6 @@
 - [JavaScript(コンポーネントオプション) - data](#jsvue-data)
 - [CSS - 基本的な考え方](#css-policy)
 - [CSS - margin](#css-margin)
-- [CSS - サイズ指定の単位](#css-size)
 - [CSS - !important](#css-important)
 - [CSS - SCSS の記法](#css-scss)
 - [CSS - インデント](#css-indent)
@@ -449,13 +448,6 @@ export default {
 - 左右の要素間の隙間を空ける時は、 `margin-right` を適用する
 - 上下の要素を重ねる時は、 `margin-top` のネガティブマージン(マイナスのマージン)を用いる
 - 左右の要素を重ねる時は、 `margin-left` でネガティブマージン(マイナスのマージン)を用いる
-
-## CSS - サイズ指定の単位
-
-<a name="css-size"></a>
-
-- 基本的には、em か%を用いる
-- レイアウトやボックスなど大きい範囲のサイズ指定（特に、width）は、%を用い、文字の大きさやちょっとした隙間などは em を用いる。基本的には em を用いることになる。迷ったら、em。
 
 ## CSS - !important
 
