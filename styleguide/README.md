@@ -1,4 +1,4 @@
-# Style guides in Golang WebApp
+# Style guides in Golang & Vue.js
 
 ## 文書一覧
 
@@ -9,7 +9,7 @@
 
 ## 目的
 
-本文書は、Golang WebApp での規準等を定め、記したものである。
+本文書は、Golang & Vue.js の開発での規準等を定め、記したものである。
 誰もが読みやすいコードを目標とし、可読性と一貫性を重視して規準を定めることとする。
 
 ## 著作権
