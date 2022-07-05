@@ -21,7 +21,7 @@ https://user-images.githubusercontent.com/99755034/177384133-9f68e163-6a8a-408a-
 - フロントエンド
   - HTML / CSS / SCSS / TypeScript / Vue.js
 - バックエンド
-  - Golang / Gin
+  - Go / Gin
 - ライブラリ
   - Vuetify / axios / Vuex など
 - データベース
