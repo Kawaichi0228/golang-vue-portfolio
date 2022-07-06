@@ -2,14 +2,13 @@ package routes
 
 import (
 	"net/http" // 各ステータスコードの定数モジュール(ex. http.StatusOK = 200)
-	"time"
 
 	v1 "webapp/api/v1"
+	"webapp/middleware"
 	"webapp/utils"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/multitemplate"
 )
 
@@ -48,30 +47,7 @@ func InitRouter() { // 「setup」と命名することもある
 	// -------------------------------------------------------------------------
 	// Corsの設定
 	// -------------------------------------------------------------------------
-	r.Use(cors.New(cors.Config{
-		// アクセスを許可したいアクセス元
-		AllowOrigins: []string{
-			"http://localhost:8080/",
-		},
-		// アクセスを許可したいHTTPメソッド
-		AllowMethods: []string{
-			"POST",
-			"GET",
-		},
-		// 許可したいHTTPリクエストヘッダ
-		AllowHeaders: []string{
-			"Access-Control-Allow-Credentials",
-			"Access-Control-Allow-Headers",
-			"Content-Type",
-			"Content-Length",
-			"Accept-Encoding",
-			"Authorization",
-		},
-		// cookieなどの情報を必要とするかどうか
-		AllowCredentials: true,
-		// preflightリクエストの結果をキャッシュする時間
-		MaxAge: 24 * time.Hour,
-	}))
+	r.Use(middleware.Cors())
 
 	// -------------------------------------------------------------------------
 	// htmlファイルの事前読み込み(ルーティングでHTMLファイルを表示できるようにするため)
@@ -108,7 +84,7 @@ func InitRouter() { // 「setup」と命名することもある
 
 	// - 認証が必要なもの
 	rAuth := r.Group("/api/v1")
-	rAuth.Use(u.SessionCheck())
+	rAuth.Use(middleware.SessionCheck())
 	{
 		rAuth.GET("/user", u.Get)
 		rAuth.GET("/task", t.GetAll)
