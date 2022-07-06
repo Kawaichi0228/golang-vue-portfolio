@@ -14,6 +14,10 @@
   </v-container>
 </template>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4719463980b14f553a4f8f03c8a2015bb4f3be39
 <style lang="scss" scoped>
 .notfound__title {
   font-size: 5rem;
