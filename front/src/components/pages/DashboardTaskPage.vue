@@ -5,7 +5,7 @@
       <v-divider class="mx-3" inset vertical></v-divider>
 
       <!-- リスト更新ボタン -->
-      <v-icon @click="refresh()">mdi-refresh</v-icon>
+      <v-icon @click="getAll_task()">mdi-refresh</v-icon>
       <v-spacer></v-spacer>
 
       <!-- 検索フィールド -->
@@ -137,17 +137,18 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { getUserInfo } from "@/utils/userAxios";
+
 // リポジトリの生成
 import { RepositoryFactory } from "@/repository/RepositoryFactory";
 const TaskRepository = RepositoryFactory.get("task");
-const UserRepository = RepositoryFactory.get("user");
 
 export default {
   name: "ListTemplate",
 
   created() {
-    this.refresh();
+    this.getAll_task();
   },
 
   data() {
@@ -279,18 +280,11 @@ export default {
 
     // ユーザ情報を取得
     async getUserInfo() {
-      const res = await UserRepository.get().catch((err) => {
+      const res = await getUserInfo().catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
-        console.warn("ユーザー情報の取得に失敗しました");
-        return;
-      }
-      console.info("ユーザー情報の取得に成功しました");
-      console.table(res.data);
-
       // 取得したデータをdata()へ格納
-      this.userData = res.data.data;
+      this.userData = res;
     },
 
     // -------------------------------------------------------------------------
@@ -312,11 +306,6 @@ export default {
 
       // ダイアログを表示する
       this.deleteDialog = true;
-    },
-
-    // 一覧の最新化
-    refresh() {
-      this.getAll_task();
     },
 
     // -------------------------------------------------------------------------

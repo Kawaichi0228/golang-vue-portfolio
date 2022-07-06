@@ -23,10 +23,8 @@
   </div>
 </template>
 
-<script>
-// リポジトリの生成
-import { RepositoryFactory } from "@/repository/RepositoryFactory";
-const UserRepository = RepositoryFactory.get("user");
+<script lang="ts">
+import { getUserInfo } from "@/utils/userAxios";
 
 export default {
   data() {
@@ -42,18 +40,11 @@ export default {
   methods: {
     // ユーザ情報を取得
     async getUserInfo() {
-      const res = await UserRepository.get().catch((err) => {
+      const res = await getUserInfo().catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
-        console.warn("ユーザー情報の取得に失敗しました");
-        return;
-      }
-      console.info("ユーザー情報の取得に成功しました");
-      console.table(res.data);
-
       // 取得したデータをdata()へ格納
-      this.userData = res.data.data;
+      this.userData = res;
     },
   },
 };
