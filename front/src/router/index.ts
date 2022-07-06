@@ -24,6 +24,9 @@ import { dashboardLayout } from "@/components/layouts/dashboardLayout";
 import DashboardTaskPage from "@/components/pages/DashboardTaskPage.vue";
 import DashboardAcountPage from "@/components/pages/DashboardAcountPage.vue";
 
+// 404
+import NotFoundPage from "@/components/pages/NotFoundPage.vue";
+
 // 使用宣言(Vueプロジェクト全体で使用する機能(プラグイン)の宣言)
 Vue.use(Router);
 
@@ -98,7 +101,8 @@ export const router = new Router({
     {
       name: "notfound",
       path: "/*", // 該当するページが存在しない場合
-      component: () => import("@/components/pages/NotFoundPage.vue"),
+      component: frontLayout(NotFoundPage),
+      //component: () => import("@/components/pages/NotFoundPage.vue"),
     },
   ],
 
