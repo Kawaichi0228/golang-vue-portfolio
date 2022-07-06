@@ -33,6 +33,9 @@ const isRequiresAuth = true;
 
 // インスタンス生成
 export const router = new Router({
+  // URLにハッシュ(#)を付与するか
+  mode: "hash", // hash mode | history mode
+
   // URLとコンポーネントを関連付けるためのルーティング設定
   routes: [
     // =========================================================================
@@ -88,6 +91,14 @@ export const router = new Router({
       path: "/dashboard/acount",
       meta: { requiresAuth: isRequiresAuth },
       component: dashboardLayout(DashboardAcountPage),
+    },
+    // =========================================================================
+    // 404ページ
+    // =========================================================================
+    {
+      name: "notfound",
+      path: "/*", // 該当するページが存在しない場合
+      component: () => import("@/components/pages/NotFoundPage.vue"),
     },
   ],
 
