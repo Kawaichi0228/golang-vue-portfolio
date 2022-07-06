@@ -15,7 +15,7 @@
 
         <AuthContents
           buttonValue="ログイン"
-          :onSubmitFunction="login"
+          :onSubmitFunction="loginCallBackFunction"
           :isVisibleErrmsg="isVisibleErrmsg"
           errMsgValue="メールアドレスまたはパスワードが違います"
           @form-data="addFormData"
@@ -46,7 +46,7 @@ export default {
 
   data() {
     return {
-      login: this.login_,
+      loginCallBackFunction: this.login,
       isVisibleErrmsg: false,
       formData: {},
     };
@@ -83,7 +83,7 @@ export default {
     },
 
     // フォームに入力されたデータをapiへ送信する
-    async login_() {
+    async login() {
       const formData = {
         email: this.formData.email,
         password: this.formData.password,

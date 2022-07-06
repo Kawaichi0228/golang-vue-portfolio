@@ -15,7 +15,7 @@
 
         <AuthContents
           buttonValue="会員登録"
-          :onSubmitFunction="register"
+          :onSubmitFunction="registerCallBackFunction"
           :isVisibleErrmsg="isVisibleErrmsg"
           errMsgValue="メールアドレスおよびパスワードを正しく入力してください"
           @form-data="addFormData"
@@ -46,7 +46,7 @@ export default {
 
   data() {
     return {
-      register: this.register_,
+      registerCallBackFunction: this.register,
       isVisibleErrmsg: false,
     };
   },
@@ -58,7 +58,7 @@ export default {
     },
 
     // フォームに入力されたデータをapiへ送信する
-    async register_() {
+    async register() {
       const formData = {
         email: this.formData.email,
         password: this.formData.password,
