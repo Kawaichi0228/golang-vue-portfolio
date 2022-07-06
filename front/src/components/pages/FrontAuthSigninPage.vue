@@ -52,34 +52,10 @@ export default {
     };
   },
 
-  mounted() {
-    // MEMO: エラー「Property 'XXX' does not exist on type」が出るため、@ts-ignoreで型を無視している
-    //  (型推論が効いていないのが原因？)
-    // @ts-ignore
-    this.checkLoginState(); // ログイン状態のチェック
-  },
-
   methods: {
     // 子のコンポーネントから値を受け取るためのメソッド
     addFormData(value) {
       this.formData = value;
-    },
-
-    // ログイン中か状態を確認
-    async checkLoginState() {
-      const res = await UserRepository.get().catch((err) => {
-        return err.response;
-      });
-      if (res.status != 200) {
-        console.warn("ログインしていない状態です");
-        return;
-      }
-      console.info("ログイン中の状態です");
-      console.table(res.data);
-
-      // アプリ画面へ移動
-      // @ts-ignore
-      await this.$router.push("/dashboard");
     },
 
     // フォームに入力されたデータをapiへ送信する
@@ -105,7 +81,7 @@ export default {
       console.group("success");
       console.info("ログインに成功しました");
       console.table(res.data);
-      console.groupEnd("");
+      console.groupEnd();
 
       // 認証フラグをtrueにする
       await this.$store.dispatch("user/setAuth", true);
