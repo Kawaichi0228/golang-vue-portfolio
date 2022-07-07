@@ -14,18 +14,18 @@ import { store } from "@/store";
 // ユーザ定義コンポーネントのインポート
 // -------------------------------------------------------------------------
 // フロントページ
-import { frontLayout } from "@/components/layouts/frontLayout";
-import FrontHomePage from "@/components/pages/FrontHomePage.vue";
-import FrontAuthSignupPage from "@/components/pages/FrontAuthSignupPage.vue";
-import FrontAuthSigninPage from "@/components/pages/FrontAuthSigninPage.vue";
+import { frontLayout } from "@/layouts/frontLayout";
+import FrontHomeView from "@/views/FrontHomeView.vue";
+import FrontAuthSignupView from "@/views/FrontAuthSignupView.vue";
+import FrontAuthSigninView from "@/views/FrontAuthSigninView.vue";
 
 // ダッシュボード
-import { dashboardLayout } from "@/components/layouts/dashboardLayout";
-import DashboardTaskPage from "@/components/pages/DashboardTaskPage.vue";
-import DashboardAcountPage from "@/components/pages/DashboardAcountPage.vue";
+import { dashboardLayout } from "@/layouts/dashboardLayout";
+import DashboardTaskView from "@/views/DashboardTaskView.vue";
+import DashboardAcountView from "@/views/DashboardAcountView.vue";
 
 // 404
-import NotFoundPage from "@/components/pages/NotFoundPage.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 // 使用宣言(Vueプロジェクト全体で使用する機能(プラグイン)の宣言)
 Vue.use(Router);
@@ -54,17 +54,17 @@ export const router = new Router({
     {
       name: "front-home",
       path: "/home",
-      component: frontLayout(FrontHomePage),
+      component: frontLayout(FrontHomeView),
     },
     {
       name: "front-signup",
       path: "/signup",
-      component: frontLayout(FrontAuthSignupPage),
+      component: frontLayout(FrontAuthSignupView),
     },
     {
       name: "front-signin",
       path: "/signin",
-      component: frontLayout(FrontAuthSigninPage),
+      component: frontLayout(FrontAuthSigninView),
 
       // ナビゲーションガード(ページ遷移をガードする)の個別指定(まとめて指定したい場合はbeforeEachで行う)
       beforeEnter(to, from, next) {
@@ -87,13 +87,13 @@ export const router = new Router({
       name: "dashboard-task",
       path: "/dashboard/task",
       meta: { requiresAuth: isRequiresAuth },
-      component: dashboardLayout(DashboardTaskPage),
+      component: dashboardLayout(DashboardTaskView),
     },
     {
       name: "dashboard-acount",
       path: "/dashboard/acount",
       meta: { requiresAuth: isRequiresAuth },
-      component: dashboardLayout(DashboardAcountPage),
+      component: dashboardLayout(DashboardAcountView),
     },
     // =========================================================================
     // 404ページ
@@ -101,8 +101,8 @@ export const router = new Router({
     {
       name: "notfound",
       path: "/*", // 該当するページが存在しない場合
-      component: frontLayout(NotFoundPage),
-      //component: () => import("@/components/pages/NotFoundPage.vue"),
+      component: frontLayout(NotFoundView),
+      //component: () => import("@/views/NotFoundView.vue"),
     },
   ],
 

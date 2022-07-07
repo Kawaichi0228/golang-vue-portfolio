@@ -32,7 +32,22 @@
 <a name="directory-and-architecture"></a>
 
 - Parts & Pages & Globals パターンを採用する
+
+  ※ただし、`pages` は `views` に名前を変更する
+
   > [参考] https://qiita.com/tockn/items/2ce68b99e0839df52200)
+
+  - **layouts**
+    
+    src/router/index.tsにimportされるレイアウト
+
+  - **views**
+
+    src/router/index.tsにimportされるコンポーネント
+
+  - **components**
+
+    再利用可能な部品
 
 ## Vue.js - パスの指定方法
 
