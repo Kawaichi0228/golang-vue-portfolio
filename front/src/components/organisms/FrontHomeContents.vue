@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid>
-    <div>
-      <v-row align-content="center" class="main-visual__bg pb-16">
-        <v-col cols="12" class="px-14">
+  <v-container fluid class="test">
+    <v-row class="main-visual__bg">
+      <v-row align-content="center">
+        <v-col cols="12">
           <!-- タイトル(キャッチコピー) -->
           <div class="home-contents__title">
             <h1 class="home-contents--padding">
@@ -29,7 +29,7 @@
           </v-row>
         </v-col>
       </v-row>
-    </div>
+    </v-row>
   </v-container>
 </template>
 
@@ -69,7 +69,6 @@ export default {
     min-height: 450px;
     background-size: cover;
     background-repeat: no-repeat;
-
     background-image: url("@/assets/images/photos/main-visual-bg.png");
   }
 }

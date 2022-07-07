@@ -10,15 +10,17 @@ body {
 
 ul {
   list-style-type: none; // liタグの初期の「点」を消す
-  padding-left: 0px; // 行頭の空白を消す
+  // 行頭の空白を消す
+  padding-left: 0;
+  padding-inline-start: 0 !important;
 }
 
 a {
   text-decoration: none; // リンクの下線なくす
-  display: inline-flex;
 
   // aタグ初期値防止(初期値でブルーandパープル化等してしまうため)
   color: #1976d2;
+
   &:visited {
     color: #1976d2;
   }

@@ -1,8 +1,8 @@
 1<template>
-  <div id="footer-top">
-    <div class="footer-top__body">
-      <div class="footer-top__column">
-        <h2>{{ pageTitle }}とは</h2>
+  <v-container>
+    <v-row>
+      <v-col cols="12" sm="3">
+        <h2 class="footer-top__column--title">{{ pageTitle }}とは</h2>
 
         <ul>
           <li class="footer-top__column--text">
@@ -16,10 +16,10 @@
             </a>
           </li>
         </ul>
-      </div>
+      </v-col>
 
-      <div class="footer-top__column">
-        <h2>お知らせ・ブログ</h2>
+      <v-col cols="12" sm="3">
+        <h2 class="footer-top__column--title">お知らせ・ブログ</h2>
         <ul>
           <li class="footer-top__column--text">
             <a href="#">
@@ -32,10 +32,10 @@
             </a>
           </li>
         </ul>
-      </div>
+      </v-col>
 
-      <div class="footer-top__column">
-        <h2>サポート</h2>
+      <v-col cols="12" sm="3">
+        <h2 class="footer-top__column--title">サポート</h2>
         <ul>
           <li class="footer-top__column--text">
             <a href="#">
@@ -48,9 +48,9 @@
             </a>
           </li>
         </ul>
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -71,50 +71,19 @@ export default {
 @import "@/styles/utils/_centering.scss";
 @import "@/styles/function/_rem.scss";
 
-#footer-top {
-  font-size: $font-size-small;
-
-  h2 {
-    font-size: $font-size-base;
-    margin-bottom: 20px;
-  }
-
-  a {
-    color: $color-gray;
-    text-decoration: underlinnone;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  ul {
-    padding: 0;
-  }
-
-  li {
-    margin: 10px 0px;
-  }
-}
-.footer-top__body {
-  margin-bottom: rem(80);
-
-  @include tab {
-    text-align: left;
-    display: inline-flex;
-    margin-left: rem(100);
-    margin-bottom: rem(200);
-  }
-}
 .footer-top__column {
-  margin: rem(20) rem(40);
-
-  @include tab {
-    white-space: nowrap; // 改行を禁止
-    max-width: 350px;
-    margin: 0 rem(80);
-  }
 }
-.footer-top__column--text {
-  @include center-vertical;
+.footer-top__column--title {
+  font-size: $font-size-base;
+  margin-bottom: 1.2rem;
+}
+.footer-top__column--text * {
+  margin-bottom: 1.2rem;
+  font-size: $font-size-small;
+  color: $color-gray;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
 }
 </style>

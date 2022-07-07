@@ -1,8 +1,8 @@
 <template>
   <v-container class="home-page" fluid fill-height>
     <FrontHomeContents class="home-page__contents mb-16" />
-    <FrontHomeFooterTop />
-    <FrontHomeFooterBottom class="px-14" />
+    <FrontHomeFooterTop class="mb-16 ml-16" />
+    <FrontHomeFooterBottom />
   </v-container>
 </template>
 
@@ -24,6 +24,7 @@ export default {
 @import "@/styles/function/_rem.scss";
 
 .home-page {
+  padding: 0 6rem;
 }
 .home-page__contents {
 }

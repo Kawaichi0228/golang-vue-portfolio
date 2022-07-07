@@ -19,9 +19,11 @@ $font__color: $color-black;
   font-size: $font-size-base;
   color: $font__color;
 }
+
 h1 {
   font-size: $font-size-h1;
 }
+
 h2 {
   font-size: $font-size-h2;
 }
@@ -30,5 +32,5 @@ h2 {
 // vuetify上書き
 // -------------------------------------------------------------------------
 .theme--light {
-  color: $font__color !important;
+  color: $font__color  !important;
 }
