@@ -1,8 +1,10 @@
 package utils
 
 import (
-	"fmt"
+	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gopkg.in/ini.v1"
 )
 
@@ -25,39 +27,39 @@ var (
 
 // init関数: import時に呼び出される。mainモジュールに記載した場合には、main()より先に呼び出される。
 func init() {
-	// configファイルを読み込む
-	p := "config/config.ini"
-	file, err := ini.Load(p)
+	loadEnv()
+	loadConfigIni()
+}
+
+func loadEnv() {
+	p := "./config/.env"
+	err := godotenv.Load(p)
 	if err != nil {
-		fmt.Println("configファイルの読込に失敗しました。:", err)
+		log.Fatal(".envファイルの読込に失敗しました: ", err)
 	}
 
-	// 読み込んだconfigから、宣言しておいた各varに値をセットする
-	LoadServer(file)
-	LoadData(file)
-	LoadStorage(file)
+	HttpPort = os.Getenv("HTTP_PORT")
+	DbHost = os.Getenv("DB_HOST")
+	DbPort = os.Getenv("DB_PORT")
+	DbUsername = os.Getenv("DB_USERNAME")
+	DbPassword = os.Getenv("DB_PASSWORD")
+	DbDatabaseName = os.Getenv("DB_DATABASE")
 }
 
-func LoadServer(file *ini.File) {
-	s := "server"
-	AppMode = file.Section(s).Key("AppMode").String()
-	HttpPort = file.Section(s).Key("HttpPort").String()
-	JwtKey = file.Section(s).Key("JwtKey").String()
-}
+func loadConfigIni() {
+	p := "./config/config.ini"
+	file, err := ini.Load(p)
+	if err != nil {
+		log.Fatal("config.iniの読込に失敗しました: ", err)
+	}
 
-func LoadData(file *ini.File) {
-	s := "database"
-	DbUsername = file.Section(s).Key("DbUsername").String()
-	DbPassword = file.Section(s).Key("DbPassword").String()
-	DbHost = file.Section(s).Key("DbHost").String()
-	DbPort = file.Section(s).Key("DbPort").String()
-	DbDatabaseName = file.Section(s).Key("DbDatabaseName").String()
-}
+	s1 := "server"
+	AppMode = file.Section(s1).Key("AppMode").String()
+	JwtKey = file.Section(s1).Key("JwtKey").String()
 
-func LoadStorage(file *ini.File) {
-	s := "storage"
-	AccessKey = file.Section(s).Key("AccessKey").String()
-	SecretKey = file.Section(s).Key("SecretKey").String()
-	Bucket = file.Section(s).Key("Bucket").String()
-	StorageServer = file.Section(s).Key("StorageServer").String()
+	s2 := "storage"
+	AccessKey = file.Section(s2).Key("AccessKey").String()
+	SecretKey = file.Section(s2).Key("SecretKey").String()
+	Bucket = file.Section(s2).Key("Bucket").String()
+	StorageServer = file.Section(s2).Key("StorageServer").String()
 }
