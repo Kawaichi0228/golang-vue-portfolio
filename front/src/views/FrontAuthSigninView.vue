@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import AuthContents from "@/components/parts/AuthContents.vue";
+import AuthContents from "@/components/organisms/AuthContents.vue";
 
 // リポジトリの生成
 import { RepositoryFactory } from "@/repository/RepositoryFactory";

@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import NotFoundContents from "@/components/parts/NotFoundContents.vue";
-import FrontHomeFooterTop from "@/components/parts/FrontHomeFooterTop.vue";
-import FrontHomeFooterBottom from "@/components/parts/FrontHomeFooterBottom.vue";
+import NotFoundContents from "@/components/organisms/NotFoundContents.vue";
+import FrontHomeFooterTop from "@/components/organisms/FrontHomeFooterTop.vue";
+import FrontHomeFooterBottom from "@/components/organisms/FrontHomeFooterBottom.vue";
 
 export default {
   components: {

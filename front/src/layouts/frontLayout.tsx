@@ -3,7 +3,7 @@ import { VApp, VAppBar, VContent } from "vuetify/lib";
 
 // ユーザー定義コンポーネント
 import FrontHeader from "@/components/globals/FrontHeader.vue";
-import ScrollTopButton from "@/components/parts/ScrollTopButton.vue";
+import ButtonScrollTop from "@/components/atoms/ButtonScrollTop.vue";
 
 export function frontLayout(PageComponent: VueConstructor<Vue>) {
   return Vue.extend({
@@ -17,7 +17,7 @@ export function frontLayout(PageComponent: VueConstructor<Vue>) {
 
       // ユーザー定義コンポーネント
       FrontHeader,
-      ScrollTopButton,
+      ButtonScrollTop,
     },
 
     render() {
@@ -27,7 +27,7 @@ export function frontLayout(PageComponent: VueConstructor<Vue>) {
           <v-content>
             <PageComponent propsData={this.$attrs} />
           </v-content>
-          <ScrollTopButton />
+          <ButtonScrollTop />
         </v-app>
       );
     },
