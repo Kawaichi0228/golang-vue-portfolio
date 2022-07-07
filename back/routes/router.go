@@ -59,8 +59,8 @@ func InitRouter() { // 「setup」と命名することもある
 	// ex. [ r.Static(<アウトプットパス(URIへ)>, <インプットパス(ローカルから)>) ]
 	//      MEMO: 1つのURIにつき、1つのStatic または 複数のStaticFile しか使えない(1つのURIに対して Static と StaticFile の重複は不可)
 	// -------------------------------------------------------------------------
-	r.Static("/static", "./dist/static") // 静的ファイルをディレクトリごとまとめて読み込む
-	//r.StaticFile("/static/foo.png", "./static/foo.png") // 特定の静的ファイルを読み込む
+	r.Static("/static", "./dist/static")               // 静的ファイルをディレクトリごとまとめて読み込む
+	r.StaticFile("/favicon.ico", "./dist/favicon.ico") // 特定の静的ファイルを読み込む
 
 	// -------------------------------------------------------------------------
 	// ルーティングの設定 & (ミドルウェアの適用)
