@@ -47,4 +47,4 @@ https://user-images.githubusercontent.com/99755034/177384133-9f68e163-6a8a-408a-
 
 - 保守性と可読性を高めるために作成いたしました
 
-  [コーディング規約へ](styleguide/README.md)
+  [コーディング規約](https://github.com/Kawaichi0228/styleguide)
