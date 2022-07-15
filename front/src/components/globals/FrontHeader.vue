@@ -87,7 +87,7 @@
   </header>
 </template>
 
-<script lagn="ts">
+<script>
 import { constants } from "@/utils/constants";
 
 //import $ from "jquery";
