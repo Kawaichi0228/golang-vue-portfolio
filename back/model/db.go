@@ -16,21 +16,10 @@ import (
 	"gorm.io/driver/mysql"
 )
 
-// データベース接続設定を定義
-const (
-	DB_SCHEMA = "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local"
-)
-
 // DSNを生成する(各設定を1つの文字列として結合することで生成)
 // 省略形 dsn: データベースの識別子(接続情報)
 var (
-	schema         = DB_SCHEMA
-	username       = utils.DbUsername
-	password       = utils.DbPassword
-	host           = utils.DbHost
-	port           = utils.DbPort
-	dbName         = utils.DbDatabaseName
-	datasourceName = fmt.Sprintf(schema, username, password, host, port, dbName)
+	datasourceName = utils.DbDataSourceName
 	// DBインスタンス
 	DB *gorm.DB
 )

@@ -1,23 +1,23 @@
 package utils
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
-	"gopkg.in/ini.v1"
 )
 
 var (
-	AppMode  string
-	HttpPort string
-	JwtKey   string
+	AppMode string
+	JwtKey  string
 
-	DbUsername     string
-	DbPassword     string
-	DbHost         string
-	DbPort         string
-	DbDatabaseName string
+	DbSchema         string
+	DbUsername       string
+	DbPassword       string
+	DbHost           string
+	DbPort           string
+	DbDatabaseName   string
+	DbDataSourceName string
 
 	AccessKey     string
 	SecretKey     string
@@ -28,38 +28,25 @@ var (
 // init関数: import時に呼び出される。mainモジュールに記載した場合には、main()より先に呼び出される。
 func init() {
 	loadEnv()
-	loadConfigIni()
 }
 
 func loadEnv() {
 	p := "./config/.env"
 	err := godotenv.Load(p)
+
+	// .envの読み込みに失敗した(=本番環境)の場合、herokuの環境変数`DATABASE_URL`から
+	// DataSourceNameを生成する
 	if err != nil {
-		log.Fatal(".envファイルの読込に失敗しました: ", err)
+		DbDataSourceName = os.Getenv("DATABASE_URL")
+		return
 	}
 
-	HttpPort = os.Getenv("HTTP_PORT")
+	// ローカルのDataSourceNameを.envファイルから生成
+	DbSchema = os.Getenv("DB_SCHEMA")
 	DbHost = os.Getenv("DB_HOST")
 	DbPort = os.Getenv("DB_PORT")
 	DbUsername = os.Getenv("DB_USERNAME")
 	DbPassword = os.Getenv("DB_PASSWORD")
 	DbDatabaseName = os.Getenv("DB_DATABASE")
-}
-
-func loadConfigIni() {
-	p := "./config/config.ini"
-	file, err := ini.Load(p)
-	if err != nil {
-		log.Fatal("config.iniの読込に失敗しました: ", err)
-	}
-
-	s1 := "server"
-	AppMode = file.Section(s1).Key("AppMode").String()
-	JwtKey = file.Section(s1).Key("JwtKey").String()
-
-	s2 := "storage"
-	AccessKey = file.Section(s2).Key("AccessKey").String()
-	SecretKey = file.Section(s2).Key("SecretKey").String()
-	Bucket = file.Section(s2).Key("Bucket").String()
-	StorageServer = file.Section(s2).Key("StorageServer").String()
+	DbDataSourceName = fmt.Sprintf(DbSchema, DbUsername, DbPassword, DbHost, DbPort, DbDatabaseName)
 }

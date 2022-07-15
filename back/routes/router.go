@@ -5,7 +5,6 @@ import (
 
 	v1 "webapp/api/v1"
 	"webapp/middleware"
-	"webapp/utils"
 
 	"github.com/gin-gonic/gin"
 
@@ -107,6 +106,8 @@ func InitRouter() { // 「setup」と命名することもある
 	//log.Fatal(http.ListenAndServe("localhost:8080", nil))
 
 	// サーバーを起動
-	httpPort := utils.HttpPort
-	_ = r.Run(httpPort) // 引数のポートは省略も可能。その場合は「8080」となる。
+	//   herokuはportがランダムのため、環境変数から指定する必要がある
+	// ローカルでAPIを動かす際は以下のように環境変数をセットする
+	// export PORT=8080
+	_ = r.Run() // 引数のポートは省略も可能。その場合は「8080」となる。
 }
