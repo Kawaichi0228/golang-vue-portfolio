@@ -13,6 +13,10 @@ type Upload struct {
 	up model.Upload
 }
 
+// https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem
+// herokuはgit管理外の画像ファイルなどアップロードしても1日で削除されてしまうのでこのままだと画像アップロードは動かない
+// AWS, GCPなど使用して外部ストレージサービスに保存する必要がある
+// ※ herokuにデプロイするのに必要な修正ではないです
 func (u *Upload) Add(c *gin.Context) {
 	// フォーム選択ファイルを取得
 	file, fileHeader, _ := c.Request.FormFile("image")

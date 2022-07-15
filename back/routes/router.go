@@ -108,5 +108,12 @@ func InitRouter() { // 「setup」と命名することもある
 
 	// サーバーを起動
 	httpPort := utils.HttpPort
+	// https://github.com/gin-gonic/gin/blob/4b68a5f12af4d6d2be83e1895f783d5dd5d5a148/utils.go#L142-L146
+	//   引数で指定しない場合は環境変数のPORTを読み込みその番号で起動する
+	//   環境変数のPORTが空文字列の場合はデフォルト値として8080で起動する
+	// https://devcenter.heroku.com/ja/articles/preparing-a-codebase-for-heroku-deployment#4
+	//   herokuはportがランダムのため、環境変数から指定する必要がある
+	// ローカルでAPIを動かす際は以下のように環境変数をセットする
+	// export PORT=8080
 	_ = r.Run(httpPort) // 引数のポートは省略も可能。その場合は「8080」となる。
 }

@@ -38,6 +38,11 @@ var (
 var err error
 
 func connect() {
+	// https://devcenter.heroku.com/ja/articles/heroku-postgresql#:~:text=%E3%83%97%E3%83%AD%E3%83%93%E3%82%B8%E3%83%A7%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%AE%E4%B8%80%E9%83%A8%E3%81%A8%E3%81%97%E3%81%A6%E3%80%81DATABASE_URL%E2%80%8B%20%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A%E3%81%8C%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AB%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%BE%E3%81%99%E3%80%82DATABASE_URL%E2%80%8B%20%E3%81%AB%E3%81%AF%E3%80%81
+	//   herokuのDBへの接続情報は環境変数DATABASE_URLで渡される
+	//   なので、環境変数のDATABASE_URLからdatasourceNameを読み込むように修正する必要がある
+	// ローカルでAPIを動かす際は以下のように環境変数をセットする
+	// export DATABASE_URL="<username>:<password>@tcp(<host>:<port>)/<dbname>?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
 
 	if err != nil {
