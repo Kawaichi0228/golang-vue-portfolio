@@ -31,7 +31,7 @@ func init() {
 }
 
 func loadEnv() {
-	p := "./config/.env"
+	p := "./config/.env.local"
 	err := godotenv.Load(p)
 
 	// .envの読み込みに失敗した(=本番環境)の場合、herokuの環境変数`DATABASE_URL`から
