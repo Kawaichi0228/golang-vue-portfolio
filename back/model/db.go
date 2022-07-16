@@ -1,6 +1,7 @@
 package model
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 
@@ -12,6 +13,7 @@ import (
 	//   - コードを簡素化できる
 	//   - 単純なDB操作を行いやすい
 	// 備考: 複雑な操作の場合は、gormを使わずに、SQL文でデータベースを操作したほうがよい
+	"github.com/lib/pq"
 	"gorm.io/gorm"
 
 	"gorm.io/driver/mysql"
@@ -31,13 +33,17 @@ var err error
 func connect() {
 	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
 	switch utils.AppMode {
+
 	case enum.PRODUCTION:
-		DB, err = gorm.Open(postgres.Open(datasourceName), &gorm.Config{})
+		connection, _ := pq.ParseURL(datasourceName)
+		connection += " sslmode=require"
+		sqlDB, _ := sql.Open("postgres", connection)
+		DB, err = gorm.Open(postgres.New(postgres.Config{
+			Conn: sqlDB,
+		}), &gorm.Config{})
+
 	case enum.LOCAL:
 		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
-	default:
-		fmt.Println("AppModeが判定できませんでした")
-		os.Exit(1)
 	}
 
 	if err != nil {
