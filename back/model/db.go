@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"webapp/enum"
 	"webapp/utils"
 
 	// gorm: GO言語のORMマッピング用モジュール
@@ -14,6 +15,7 @@ import (
 	"gorm.io/gorm"
 
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 )
 
 // DSNを生成する(各設定を1つの文字列として結合することで生成)
@@ -27,7 +29,16 @@ var (
 var err error
 
 func connect() {
-	DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
+	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
+	switch utils.AppMode {
+	case enum.PRODUCTION:
+		DB, err = gorm.Open(postgres.Open(datasourceName), &gorm.Config{})
+	case enum.LOCAL:
+		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
+	default:
+		fmt.Println("AppModeが判定できませんでした")
+		os.Exit(1)
+	}
 
 	if err != nil {
 		fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
