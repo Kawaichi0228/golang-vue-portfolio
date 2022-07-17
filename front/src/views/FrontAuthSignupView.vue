@@ -67,7 +67,7 @@ export default {
       const res = await UserRepository.register(formData).catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("会員登録に失敗しました");
         console.table(res.data);
         this.showErrMsg();

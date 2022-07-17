@@ -77,7 +77,7 @@ export default {
       const res = await UserRepository.logout().catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("ログアウトに失敗しました");
         return;
       }

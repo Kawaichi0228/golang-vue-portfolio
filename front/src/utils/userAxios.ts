@@ -7,7 +7,7 @@ export const getUserInfo = async () => {
   const res = await UserRepository.get().catch((err: any) => {
     return err.response;
   });
-  if (res.status != 200) {
+  if (res.status !== 200) {
     console.warn("ユーザー情報の取得に失敗しました");
     throw new Error(res);
   }

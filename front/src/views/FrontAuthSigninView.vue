@@ -68,7 +68,7 @@ export default {
       const res = await UserRepository.login(formData).catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("ログインに失敗しました");
         console.table(res.data);
         this.showErrMsg();

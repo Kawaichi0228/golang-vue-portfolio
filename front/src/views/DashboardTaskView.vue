@@ -197,7 +197,7 @@ export default {
       const res = await TaskRepository.getAll().catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("タスク取得に失敗しました");
         return;
       }
@@ -218,7 +218,7 @@ export default {
       const res = await TaskRepository.create(formData).catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("タスク作成に失敗しました");
         this.close();
         return;
@@ -242,7 +242,7 @@ export default {
           return err.response;
         }
       );
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("タスク更新に失敗しました");
         this.close();
         return;
@@ -263,7 +263,7 @@ export default {
       const res = await TaskRepository.delete(targetID).catch((err) => {
         return err.response;
       });
-      if (res.status != 200) {
+      if (res.status !== 200) {
         console.warn("タスク削除に失敗しました");
         this.close();
         return;
@@ -315,7 +315,7 @@ export default {
     // ダイアログの保存ボタンが押されたときの処理
     save() {
       // IDが初期値のまま(=テーブルから選択がされていない状態)ならcreateメソッドを実行する
-      if (this.selectedTask.ID == -1) {
+      if (this.selectedTask.ID === -1) {
         // 作成
         this.create_task(this.selectedTask.text);
       } else {
