@@ -3,6 +3,7 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
 
 	"webapp/enum"
@@ -29,24 +30,36 @@ var (
 )
 
 var err error
+var errDbConnect error
 
 func connect() {
 	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
 	switch utils.AppMode {
 
 	case enum.PRODUCTION:
-		connection, _ := pq.ParseURL(datasourceName)
+		connection, err := pq.ParseURL(datasourceName)
+		if err != nil {
+			log.Fatal(err)
+			os.Exit(1)
+		}
+
 		connection += " sslmode=require"
-		sqlDB, _ := sql.Open("postgres", connection)
-		DB, err = gorm.Open(postgres.New(postgres.Config{
+
+		sqlDB, err := sql.Open("postgres", connection)
+		if err != nil {
+			log.Fatal(err)
+			os.Exit(1)
+		}
+
+		DB, errDbConnect = gorm.Open(postgres.New(postgres.Config{
 			Conn: sqlDB,
 		}), &gorm.Config{})
 
 	case enum.LOCAL:
-		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
+		DB, errDbConnect = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
 	}
 
-	if err != nil {
+	if errDbConnect != nil {
 		fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
 		os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
 	}
