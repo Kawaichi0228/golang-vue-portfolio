@@ -30,7 +30,6 @@ var (
 )
 
 var err error
-var errDbConnect error
 
 func connect() {
 	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
@@ -42,7 +41,7 @@ func connect() {
 
 		connection, err := pq.ParseURL(datasourceName)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 			os.Exit(1)
 		}
 
@@ -55,22 +54,24 @@ func connect() {
 		}
 
 		fmt.Println("データベース接続直前のDSN: ", datasourceName)
-		DB, errDbConnect = gorm.Open(postgres.New(postgres.Config{
+		DB, err = gorm.Open(postgres.New(postgres.Config{
 			Conn: sqlDB,
 		}), &gorm.Config{})
+		if err != nil {
+			fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
+			os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
+		}
 
 	case enum.LOCAL:
 		fmt.Println("ローカル環境用のデータベース接続処理を実行します")
 
 		fmt.Println("データベース接続直前のDSN: ", datasourceName)
-		DB, errDbConnect = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
+		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
+		if err != nil {
+			fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
+			os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
+		}
 	}
-
-	if errDbConnect != nil {
-		fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
-		os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
-	}
-
 	fmt.Println("データベースへの接続が成功しました。", DB)
 }
 
