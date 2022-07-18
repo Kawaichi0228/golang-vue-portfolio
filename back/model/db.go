@@ -34,9 +34,12 @@ var errDbConnect error
 
 func connect() {
 	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
+	fmt.Println("データべース接続直前のAppMode: ", utils.AppMode)
 	switch utils.AppMode {
 
 	case enum.PRODUCTION:
+		fmt.Println("本番環境用のデータベース接続処理を実行します")
+
 		connection, err := pq.ParseURL(datasourceName)
 		if err != nil {
 			log.Fatal(err)
@@ -51,11 +54,15 @@ func connect() {
 			os.Exit(1)
 		}
 
+		fmt.Println("データベース接続直前のDSN: ", datasourceName)
 		DB, errDbConnect = gorm.Open(postgres.New(postgres.Config{
 			Conn: sqlDB,
 		}), &gorm.Config{})
 
 	case enum.LOCAL:
+		fmt.Println("ローカル環境用のデータベース接続処理を実行します")
+
+		fmt.Println("データベース接続直前のDSN: ", datasourceName)
 		DB, errDbConnect = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
 	}
 
