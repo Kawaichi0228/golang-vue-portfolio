@@ -9,13 +9,8 @@
       <v-spacer></v-spacer>
 
       <!-- 検索フィールド -->
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="検索したいワードを入力"
-        single-line
-        hide-details
-      ></v-text-field>
+      <v-text-field v-model="search" append-icon="mdi-magnify" label="検索したいワードを入力" single-line hide-details>
+      </v-text-field>
 
       <!-- 新規追加ボタン -->
       <v-divider class="mx-3" inset vertical></v-divider>
@@ -26,19 +21,11 @@
     </v-toolbar>
 
     <!-- データテーブル -->
-    <v-data-table
-      :headers="headers"
-      :items="taskList"
-      :search="search"
-      :footer-props="{ 'items-per-page-text': '表示行数/ページ:' }"
-      class="elevation-1"
-    >
+    <v-data-table :headers="headers" :items="taskList" :search="search"
+      :footer-props="{ 'items-per-page-text': '表示行数/ページ:' }" class="elevation-1">
       <template v-slot:[`item.action`]="{ item }">
         <!-- 編集ボタン -->
-        <v-icon
-          class="mr-2"
-          @click="openCreateAndUpdateDialog(item.task_id, item.text)"
-        >
+        <v-icon class="mr-2" @click="openCreateAndUpdateDialog(item.task_id, item.text)">
           mdi-square-edit-outline
         </v-icon>
 
@@ -49,13 +36,7 @@
       </template>
 
       <!-- 検索結果なしの時の表示 -->
-      <v-alert
-        slot="no-results"
-        :value="true"
-        color="secondary"
-        dark
-        icon="mdi-alert-circle-outline"
-      >
+      <v-alert slot="no-results" :value="true" color="secondary" dark icon="mdi-alert-circle-outline">
         "{{ search }}" の検索結果はありませんでした
       </v-alert>
 
@@ -75,30 +56,16 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex>
-                    <v-text-field
-                      v-model="selectedTask.text"
-                      label="タスク内容"
-                      :rules="textRules"
-                      :counter="100"
-                      required
-                    ></v-text-field>
+                    <v-text-field v-model="selectedTask.text" label="タスク内容" :rules="textRules" :counter="100" required>
+                    </v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                min-width="90px"
-                dark
-                @click="save()"
-                :disabled="!valid"
-                >保存</v-btn
-              >
-              <v-btn color="secondary" min-width="90px" dark @click="close()"
-                >キャンセル</v-btn
-              >
+              <v-btn color="primary" min-width="90px" dark @click="save()" :disabled="!valid">保存</v-btn>
+              <v-btn color="secondary" min-width="90px" dark @click="close()">キャンセル</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -107,27 +74,14 @@
 
     <!-- 削除確認ダイアログのレイアウト -->
     <v-layout row justify-center>
-      <v-dialog
-        v-model="deleteDialog"
-        color="primary"
-        persistent
-        max-width="280px"
-      >
+      <v-dialog v-model="deleteDialog" color="primary" persistent max-width="280px">
         <v-card>
           <v-container>
             <v-row class="text-center py-2" justify="center">
               <v-card-text> 削除してよろしいですか？ </v-card-text>
               <v-card-actions>
-                <v-btn
-                  color="primary"
-                  min-width="90px"
-                  dark
-                  @click="delete_task()"
-                  >削除</v-btn
-                >
-                <v-btn color="secondary" min-width="90px" dark @click="close()"
-                  >キャンセル</v-btn
-                >
+                <v-btn color="primary" min-width="90px" dark @click="delete_task()">削除</v-btn>
+                <v-btn color="secondary" min-width="90px" dark @click="close()">キャンセル</v-btn>
               </v-card-actions>
             </v-row>
           </v-container>
@@ -137,7 +91,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { getUserInfo } from "@/utils/userAxios";
 
 // リポジトリの生成
