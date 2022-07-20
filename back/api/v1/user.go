@@ -87,7 +87,7 @@ func (u *User) Login(c *gin.Context) {
 			domain = "localhost"
 
 		} else {
-			fmt.Println("cookieをセットできませんでした。(環境変数`ENV` が取得できませんでした。)")
+			fmt.Println("cookieをセットできませんでした。(環境変数 `ENV` が取得できませんでした。)")
 			c.JSON(http.StatusBadRequest, gin.H{
 				"message": "cookieのセットができませんでした",
 			})
