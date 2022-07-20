@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"net/http" // 各ステータスコードの定数モジュール(ex. http.StatusOK = 200)
+	"os"
 	"strconv"
 	"time"
 
@@ -77,22 +78,25 @@ func (u *User) Login(c *gin.Context) {
 		maxAge_sec := 3600 // cookieの有効期限(秒)などの設定
 		secure := false
 		httpOnly := false
+
+		var domain string
+		if os.Getenv("ENV") == "production" { // 本番環境の場合
+			domain = "golang-vue-portfolio.herokuapp.com"
+
+		} else if os.Getenv("ENV") == "local" { // ローカルの場合
+			domain = "localhost"
+
+		} else {
+			fmt.Println("cookieをセットできませんでした。(環境変数`ENV` が取得できませんでした。)")
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "cookieのセットができませんでした",
+			})
+			return
+		}
 		c.SetSameSite(http.SameSiteDefaultMode) // クロスオリジンの際にCookieを送付するかどうか
 		c.SetCookie(COOKIE_KEY, cookie.Value,
-			maxAge_sec, "/", "localhost", secure, httpOnly) // cookieをセット
-		/*
-			// ローカルの場合
-			if os.Getenv("ENV") == "local" {
-							log.Println("cookieをセットする")
-							c.SetCookie("jwt", cookie.Value, 3600, "/", "localhost", true, true)
-			}
+			maxAge_sec, "/", domain, secure, httpOnly) // cookieをセット
 
-			// 本番環境の場合
-			if os.Getenv("ENV") == "production" {
-							log.Println("productionでcookieをセットする")
-							c.SetCookie("jwt", cookie.Value, 3600, "/", "your_domain", true, true)
-			}
-		*/
 		fmt.Println("cookieをセットしました")
 
 		c.JSON(http.StatusOK, gin.H{
