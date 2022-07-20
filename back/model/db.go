@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 
-	"webapp/enum"
 	"webapp/utils"
 
 	// gorm: GO言語のORMマッピング用モジュール
@@ -33,16 +32,13 @@ var err error
 
 func connect() {
 	// データベース(DSN)の分岐(本番環境ならpostgres、ローカル環境ならmysql)
-	fmt.Println("データべース接続直前のAppMode: ", utils.AppMode)
-	switch utils.AppMode {
-
-	case enum.PRODUCTION:
+	if os.Getenv("ENV") == "production" {
 		fmt.Println("本番環境用のデータベース接続処理を実行します")
 
 		connection, err := pq.ParseURL(datasourceName)
 		if err != nil {
 			fmt.Println(err)
-			os.Exit(1)
+			os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
 		}
 
 		connection += " sslmode=require"
@@ -53,25 +49,28 @@ func connect() {
 			os.Exit(1)
 		}
 
-		fmt.Println("データベース接続直前のDSN: ", datasourceName)
 		DB, err = gorm.Open(postgres.New(postgres.Config{
 			Conn: sqlDB,
 		}), &gorm.Config{})
 		if err != nil {
 			fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
-			os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
+			os.Exit(1)
 		}
 
-	case enum.LOCAL:
+	} else if os.Getenv("ENV") == "local" {
 		fmt.Println("ローカル環境用のデータベース接続処理を実行します")
 
-		fmt.Println("データベース接続直前のDSN: ", datasourceName)
 		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
 		if err != nil {
 			fmt.Println("データベースへの接続に失敗しました。サーバーが起動されているか、もしくはパラメータを確認してください。：", err)
-			os.Exit(1) // os.Exit(1): 強制終了コマンド(deferも実行されない)
+			os.Exit(1)
 		}
+
+	} else {
+		log.Fatal("環境変数の取得に失敗しました。環境変数`ENV`は production | local のどちらかを指定してください。")
+		os.Exit(1)
 	}
+
 	fmt.Println("データベースへの接続が成功しました。", DB)
 }
 

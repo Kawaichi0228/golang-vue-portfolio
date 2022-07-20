@@ -3,14 +3,12 @@ package utils
 import (
 	"fmt"
 	"os"
-	"webapp/enum"
 
 	"github.com/joho/godotenv"
 )
 
 var (
-	AppMode enum.AppMode
-	JwtKey  string
+	JwtKey string
 
 	DbSchema         string
 	DbUsername       string
@@ -39,10 +37,6 @@ func loadEnv() {
 	// 本番環境用の処理(.envの読み込みに失敗した場合、本番環境と判定する)
 	// -------------------------------------------------------------------------
 	if err != nil {
-		// 本番環境用のenumをセット
-		AppMode = enum.PRODUCTION
-		fmt.Println("Set AppMode: ", AppMode.String())
-
 		// herokuの環境変数`DATABASE_URL`からDataSourceNameを生成する
 		DbDataSourceName = os.Getenv("DATABASE_URL")
 		return
@@ -51,11 +45,7 @@ func loadEnv() {
 	// -------------------------------------------------------------------------
 	// ローカル環境用の処理
 	// -------------------------------------------------------------------------
-	// ローカル環境用のenumをセット
-	AppMode = enum.LOCAL
-	fmt.Println("Set AppMode: ", AppMode.String())
-
-	// ローカルのDataSourceNameを.envファイルから生成
+	// ローカルのDataSourceNameを.envファイルの各環境変数から結合して生成
 	DbSchema = os.Getenv("DB_SCHEMA")
 	DbHost = os.Getenv("DB_HOST")
 	DbPort = os.Getenv("DB_PORT")
