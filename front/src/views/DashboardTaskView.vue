@@ -56,8 +56,10 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex>
-                    <v-text-field v-model="selectedTask.text" label="タスク内容" :rules="textRules" :counter="100" required>
+                    <v-text-field v-model="selectedTask.text" label="タスク内容" :counter="100" required>
                     </v-text-field>
+                    <!--<v-text-field v-model="selectedTask.text" label="タスク内容" :rules="textRules" :counter="100" required>-->
+                    <!--</v-text-field>-->
                   </v-flex>
                 </v-layout>
               </v-container>
