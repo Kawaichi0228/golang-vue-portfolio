@@ -11,12 +11,15 @@ func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://localhost:8080/",
+			"http://localhost:8080",
+			"https://golang-vue-portfolio.herokuapp.com",
 		},
 		// アクセスを許可したいHTTPメソッド
 		AllowMethods: []string{
-			"POST",
 			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
 		},
 		// 許可したいHTTPリクエストヘッダ
 		AllowHeaders: []string{

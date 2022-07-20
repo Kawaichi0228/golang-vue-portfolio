@@ -137,8 +137,16 @@ func (u *User) Logout(c *gin.Context) {
 	maxAge_sec := -1 // マイナス値を入れて期限切れにする
 	secure := false
 	httpOnly := false
+
+	var domain string
+	if os.Getenv("ENV") == "production" { // 本番環境の場合
+		domain = "golang-vue-portfolio.herokuapp.com"
+
+	} else if os.Getenv("ENV") == "local" { // ローカルの場合
+		domain = "localhost"
+	}
 	c.SetCookie(COOKIE_KEY, value,
-		maxAge_sec, "/", "localhost", secure, httpOnly) // cookieをセット
+		maxAge_sec, "/", domain, secure, httpOnly) // cookieをセット
 
 	fmt.Println("ログアウトに成功しました")
 	code := status.SUCCESS
