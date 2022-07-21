@@ -8,20 +8,7 @@ import (
 )
 
 var (
-	JwtKey string
-
-	DbSchema         string
-	DbUsername       string
-	DbPassword       string
-	DbHost           string
-	DbPort           string
-	DbDatabaseName   string
 	DbDataSourceName string
-
-	AccessKey     string
-	SecretKey     string
-	Bucket        string
-	StorageServer string
 )
 
 // init関数: import時に呼び出される。mainモジュールに記載した場合には、main()より先に呼び出される。
@@ -46,11 +33,11 @@ func loadEnv() {
 	// ローカル環境用の処理
 	// -------------------------------------------------------------------------
 	// ローカルのDataSourceNameを.envファイルの各環境変数から結合して生成
-	DbSchema = os.Getenv("DB_SCHEMA")
-	DbHost = os.Getenv("DB_HOST")
-	DbPort = os.Getenv("DB_PORT")
-	DbUsername = os.Getenv("DB_USERNAME")
-	DbPassword = os.Getenv("DB_PASSWORD")
-	DbDatabaseName = os.Getenv("DB_DATABASE")
+	DbSchema := os.Getenv("DB_SCHEMA")
+	DbHost := os.Getenv("DB_HOST")
+	DbPort := os.Getenv("DB_PORT")
+	DbUsername := os.Getenv("DB_USERNAME")
+	DbPassword := os.Getenv("DB_PASSWORD")
+	DbDatabaseName := os.Getenv("DB_DATABASE")
 	DbDataSourceName = fmt.Sprintf(DbSchema, DbUsername, DbPassword, DbHost, DbPort, DbDatabaseName)
 }
