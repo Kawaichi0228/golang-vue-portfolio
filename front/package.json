@@ -5,13 +5,18 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve-local": "vue-cli-service serve --mode local",
+    "serve-prod": "vue-cli-service serve --mode production",
+    "build-local": "vue-cli-service build --mode local",
+    "build-prod": "vue-cli-service build --mode production"
   },
   "dependencies": {
     "@types/jquery": "^3.5.14",
     "@vue/composition-api": "^1.7.0",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "dotenv": "^10.0.0",
     "jquery": "^3.6.0",
     "loglevel": "^1.8.0",
     "vue": "^2.7.0-beta.3",

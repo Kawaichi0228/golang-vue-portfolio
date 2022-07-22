@@ -17,8 +17,8 @@ import { store } from "@/store";
 import log from 'loglevel';
 import { LogLevelDesc } from 'loglevel';
 let logLevel: LogLevelDesc
-if (process.env.VUE_APP_ENV === "development") {
-  console.debug(`Starting ${process.env.VUE_APP_ENV} Mode.`)
+if (process.env.NODE_ENV === "development") {
+  console.debug(`Starting ${process.env.NODE_ENV} Mode.`)
   logLevel = log.levels.DEBUG
 } else {
   logLevel = log.levels.SILENT
