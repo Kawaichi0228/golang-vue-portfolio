@@ -1,11 +1,11 @@
 // リポジトリの生成
 import log from 'loglevel';
-import { RepositoryFactory } from "@/repository/RepositoryFactory";
-const UserRepository = RepositoryFactory.get("user");
+import { repositoryFactory } from "@/repository/RepositoryFactory";
+const userRepository = repositoryFactory.get("user");
 
 // ユーザ情報を取得
 export const getUserInfo = async () => {
-  const res = await UserRepository.get().catch((err: any) => {
+  const res = await userRepository.get().catch((err: any) => {
     return err.response;
   });
   if (res.status !== 200) {

@@ -1,9 +1,17 @@
 import { routerApi } from "@/repository/Repository";
 
+export type TaskRepository = {
+  getAll: Function,
+  create: Function,
+  get: Function,
+  update: Function,
+  delete: Function,
+};
+
 const resource = "/task";
 
 // リポジトリは、基本的にrouter.go のルーティング内容と一致させること
-export const TaskRepository = {
+export const taskRepository: TaskRepository = {
   getAll: () => {
     return routerApi.get(`${resource}`);
   },

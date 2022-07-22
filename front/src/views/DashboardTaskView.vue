@@ -98,8 +98,8 @@ import log from 'loglevel';
 import { getUserInfo } from "@/utils/userAxios";
 
 // リポジトリの生成
-import { RepositoryFactory } from "@/repository/RepositoryFactory";
-const TaskRepository = RepositoryFactory.get("task");
+import { repositoryFactory } from "@/repository/RepositoryFactory";
+const taskRepository = repositoryFactory.get("task");
 
 export default {
   name: "ListTemplate",
@@ -151,7 +151,7 @@ export default {
   methods: {
     // 指定ユーザーの全タスクを取得(削除データを除く)
     async getAll_task() {
-      const res = await TaskRepository.getAll().catch((err) => {
+      const res = await taskRepository.getAll().catch((err) => {
         return err.response;
       });
       if (res.status !== 200) {
@@ -172,7 +172,7 @@ export default {
         text: text,
       };
 
-      const res = await TaskRepository.create(formData).catch((err) => {
+      const res = await taskRepository.create(formData).catch((err) => {
         return err.response;
       });
       if (res.status !== 200) {
@@ -194,7 +194,7 @@ export default {
         text: text,
       };
 
-      const res = await TaskRepository.update(formData.ID, formData).catch(
+      const res = await taskRepository.update(formData.ID, formData).catch(
         (err) => {
           return err.response;
         }
@@ -217,7 +217,7 @@ export default {
       const targetID = this.selectedTask.ID;
 
       // 削除の通信処理
-      const res = await TaskRepository.delete(targetID).catch((err) => {
+      const res = await taskRepository.delete(targetID).catch((err) => {
         return err.response;
       });
       if (res.status !== 200) {

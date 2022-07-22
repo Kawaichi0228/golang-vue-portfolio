@@ -1,15 +1,20 @@
 // ここに作成したRepositoryを全て定義する
-import { TaskRepository } from "@/repository/taskRepository";
-import { UserRepository } from "@/repository/userRepository";
+import { taskRepository, TaskRepository } from "@/repository/taskRepository";
+import { userRepository, UserRepository } from "@/repository/userRepository";
 
-const repositories = {
-  // ここに作成したRepositoryを全て定義する
+type Repositories = {
   task: TaskRepository,
-  user: UserRepository,
+  user: UserRepository
+};
+
+const repositories: Repositories = {
+  // ここに作成したRepositoryを全て定義する
+  task: taskRepository,
+  user: userRepository,
 };
 
 // ファクトリーメソッド(リポジトリ生成メソッド)
-export const RepositoryFactory = {
+export const repositoryFactory = {
   // @ts-ignore
-  get: (name: any) => repositories[name],
+  get: (name: string) => repositories[name],
 };

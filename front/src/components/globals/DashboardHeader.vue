@@ -38,8 +38,8 @@
 <script>
 import log from 'loglevel';
 // リポジトリの生成
-import { RepositoryFactory } from "@/repository/RepositoryFactory";
-const UserRepository = RepositoryFactory.get("user");
+import { repositoryFactory } from "@/repository/RepositoryFactory";
+const userRepository = repositoryFactory.get("user");
 
 export default {
   data() {
@@ -65,7 +65,7 @@ export default {
   methods: {
     // ログアウト
     async logout() {
-      const res = await UserRepository.logout().catch((err) => {
+      const res = await userRepository.logout().catch((err) => {
         return err.response;
       });
       if (res.status !== 200) {

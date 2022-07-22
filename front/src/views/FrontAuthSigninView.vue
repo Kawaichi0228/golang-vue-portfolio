@@ -27,8 +27,8 @@ import log from 'loglevel';
 import AuthContents from "@/components/organisms/AuthContents.vue";
 
 // リポジトリの生成
-import { RepositoryFactory } from "@/repository/RepositoryFactory";
-const UserRepository = RepositoryFactory.get("user");
+import { repositoryFactory } from "@/repository/RepositoryFactory";
+const userRepository = repositoryFactory.get("user");
 
 export default {
   components: {
@@ -56,7 +56,7 @@ export default {
         password: this.formData.password,
       };
 
-      const res = await UserRepository.login(formData).catch((err) => {
+      const res = await userRepository.login(formData).catch((err) => {
         return err.response;
       });
       if (res.status !== 200) {
