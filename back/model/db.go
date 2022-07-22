@@ -57,7 +57,7 @@ func connect() {
 			os.Exit(1)
 		}
 
-	} else if os.Getenv("ENV") == "local" {
+	} else if os.Getenv("ENV") == "development" {
 		fmt.Println("ローカル環境用のデータベース接続処理を実行します")
 
 		DB, err = gorm.Open(mysql.Open(datasourceName), &gorm.Config{})
@@ -67,7 +67,7 @@ func connect() {
 		}
 
 	} else {
-		log.Fatal("環境変数の取得に失敗しました。環境変数`ENV`は production | local のどちらかを指定してください。")
+		log.Fatal("環境変数の取得に失敗しました。環境変数`ENV`は production | development のどちらかを指定してください。")
 		os.Exit(1)
 	}
 

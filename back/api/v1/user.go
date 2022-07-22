@@ -83,7 +83,7 @@ func (u *User) Login(c *gin.Context) {
 		if os.Getenv("ENV") == "production" { // 本番環境の場合
 			domain = "golang-vue-portfolio.herokuapp.com"
 
-		} else if os.Getenv("ENV") == "local" { // ローカルの場合
+		} else if os.Getenv("ENV") == "development" { // ローカルの場合
 			domain = "localhost"
 
 		} else {
@@ -142,7 +142,7 @@ func (u *User) Logout(c *gin.Context) {
 	if os.Getenv("ENV") == "production" { // 本番環境の場合
 		domain = "golang-vue-portfolio.herokuapp.com"
 
-	} else if os.Getenv("ENV") == "local" { // ローカルの場合
+	} else if os.Getenv("ENV") == "development" { // ローカルの場合
 		domain = "localhost"
 	}
 	c.SetCookie(COOKIE_KEY, value,
