@@ -1,25 +1,15 @@
 <template>
   <v-container fluid class="text-center">
     <v-row justify="center" align-content="center">
-      <v-card
-        :tile="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs"
-        class="fill-width"
-        flat
-        max-width="640"
-      >
+      <v-card :tile="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs" class="fill-width" flat max-width="640">
         <v-card-title class="pa-8">
           <h4 class="fill-width">ログイン</h4>
         </v-card-title>
 
         <v-divider> </v-divider>
 
-        <AuthContents
-          buttonValue="ログイン"
-          :onSubmitFunction="loginCallBackFunction"
-          :isVisibleErrmsg="isVisibleErrmsg"
-          errMsgValue="メールアドレスまたはパスワードが違います"
-          @form-data="addFormData"
-        />
+        <AuthContents buttonValue="ログイン" :onSubmitFunction="loginCallBackFunction" :isVisibleErrmsg="isVisibleErrmsg"
+          errMsgValue="メールアドレスまたはパスワードが違います" @form-data="addFormData" />
 
         <v-divider class="mb-4"> </v-divider>
 
@@ -33,6 +23,7 @@
 </template>
 
 <script>
+import log from 'loglevel';
 import AuthContents from "@/components/organisms/AuthContents.vue";
 
 // リポジトリの生成
@@ -69,23 +60,21 @@ export default {
         return err.response;
       });
       if (res.status !== 200) {
-        console.warn("ログインに失敗しました");
-        console.table(res.data);
+        log.warn("ログインに失敗しました");
+        log.info(res.data);
         this.showErrMsg();
 
         // 認証フラグをfalseにする
         await this.$store.dispatch("user/setAuth", false);
-        console.info({ isLoginState: this.$store.getters.auth });
+        log.info({ isLoginState: this.$store.getters.auth });
         return;
       }
-      console.group("success");
-      console.info("ログインに成功しました");
-      console.table(res.data);
-      console.groupEnd();
+      log.info("ログインに成功しました");
+      log.info(res.data);
 
       // 認証フラグをtrueにする
       await this.$store.dispatch("user/setAuth", true);
-      console.info({ isLoginState: this.$store.getters.auth });
+      log.info({ isLoginState: this.$store.getters.auth });
 
       // リンクを移動
       await this.$router.push("/dashboard");

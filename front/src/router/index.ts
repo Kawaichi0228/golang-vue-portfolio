@@ -9,6 +9,7 @@ import Vue from "vue";
 // -------------------------------------------------------------------------
 import Router from "vue-router";
 import { store } from "@/store";
+import log from 'loglevel';
 
 // -------------------------------------------------------------------------
 // ユーザ定義コンポーネントのインポート
@@ -137,12 +138,12 @@ router.beforeEach((to, from, next) => {
 const checkAuth_RedirectDashboard = (next: any) => {
   if (!store.getters.auth) {
     // 認証していない状態の処理
-    console.warn("認証していないためダッシュボード画面を表示します");
+    log.warn("認証していないためダッシュボード画面を表示します");
     next();
     return;
   }
   // 認証済みの状態の処理
-  console.info("認証済みのためダッシュボード画面へリダイレクトします");
+  log.info("認証済みのためダッシュボード画面へリダイレクトします");
   next("/dashboard");
 };
 
@@ -151,12 +152,12 @@ const checkNotAuth_RedirectSignin = (to: any, next: any) => {
   // ナビゲーションガード(ページ遷移をガードする)
   if (!store.getters.auth) {
     // 認証していない状態の処理
-    console.warn("認証していないためログイン画面へリダイレクトします");
+    log.warn("認証していないためログイン画面へリダイレクトします");
     // アクセスしようとしていたURLを、queryパラメーターとしてURLに付与しておく(ex. /signin?redirect=/dashbaord)
     next({ path: "/signin", query: { redirect: to.fullPath } });
     return;
   }
   // 認証済みの状態の処理
-  console.info("認証済みのためページを表示します");
+  log.info("認証済みのためページを表示します");
   next();
 };

@@ -3,12 +3,7 @@
     <!-- 色付きドロワー -->
     <v-navigation-drawer app clipped v-model="drawer" color="white">
       <v-list>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :href="item.to"
-          link
-        >
+        <v-list-item v-for="item in items" :key="item.title" :href="item.to" link>
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -21,9 +16,7 @@
       <template v-slot:append>
         <div class="pa-2">
           <!-- ログアウトボタン -->
-          <v-btn color="secondary" block dark @click="logout()"
-            >ログアウト</v-btn
-          >
+          <v-btn color="secondary" block dark @click="logout()">ログアウト</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -32,12 +25,9 @@
     <v-app-bar app clipped-left color="primary" dark flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title
-        ><router-link to="/dashboard">
-          <img
-            class="dash-top__logo"
-            src="@/assets/images/logos/logo-dark.png"
-          />
+      <v-toolbar-title>
+        <router-link to="/dashboard">
+          <img class="dash-top__logo" src="@/assets/images/logos/logo-dark.png" />
         </router-link>
       </v-toolbar-title>
     </v-app-bar>
@@ -46,6 +36,7 @@
 
 
 <script>
+import log from 'loglevel';
 // リポジトリの生成
 import { RepositoryFactory } from "@/repository/RepositoryFactory";
 const UserRepository = RepositoryFactory.get("user");
@@ -78,14 +69,14 @@ export default {
         return err.response;
       });
       if (res.status !== 200) {
-        console.warn("ログアウトに失敗しました");
+        log.warn("ログアウトに失敗しました");
         return;
       }
-      console.info("ログアウトに成功しました");
+      log.info("ログアウトに成功しました");
 
       // 認証フラグをfalseにする
       await this.$store.dispatch("user/setAuth", false);
-      console.info({ isLoginState: this.$store.getters.auth });
+      log.info({ isLoginState: this.$store.getters.auth });
 
       // トップ画面へ移動
       // @ts-ignore
@@ -102,6 +93,7 @@ export default {
   max-height: rem(35);
   margin-top: rem(10);
   width: 100%;
-  object-fit: contain; /* 画像縦横比を維持したまま、heightに対してリサイズする(ブロックに対してではない) */
+  object-fit: contain;
+  /* 画像縦横比を維持したまま、heightに対してリサイズする(ブロックに対してではない) */
 }
 </style>

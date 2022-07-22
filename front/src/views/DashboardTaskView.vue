@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import log from 'loglevel';
 import { getUserInfo } from "@/utils/userAxios";
 
 // リポジトリの生成
@@ -157,8 +158,8 @@ export default {
         console.warn("タスク取得に失敗しました");
         return;
       }
-      console.info("タスク取得に成功しました");
-      console.table(res.data);
+      log.info("タスク取得に成功しました");
+      log.info(res.data);
 
       // 取得したデータをdata()へ格納
       this.taskList = res.data.data;
@@ -179,8 +180,8 @@ export default {
         this.close();
         return;
       }
-      console.info("タスク作成に成功しました");
-      console.table(res.data);
+      log.info("タスク作成に成功しました");
+      log.info(res.data);
 
       // タスク一覧を更新
       await this.getAll_task();
@@ -203,8 +204,8 @@ export default {
         this.close();
         return;
       }
-      console.info("タスク更新に成功しました");
-      console.table(res.data);
+      log.info("タスク更新に成功しました");
+      log.info(res.data);
 
       // タスク一覧を更新
       await this.getAll_task();
@@ -224,8 +225,8 @@ export default {
         this.close();
         return;
       }
-      console.info("タスク削除に成功しました");
-      console.table(res.data);
+      log.info("タスク削除に成功しました");
+      log.info(res.data);
 
       // タスク一覧を更新
       this.getAll_task();

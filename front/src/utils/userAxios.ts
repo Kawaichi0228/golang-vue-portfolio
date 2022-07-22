@@ -1,4 +1,5 @@
 // リポジトリの生成
+import log from 'loglevel';
 import { RepositoryFactory } from "@/repository/RepositoryFactory";
 const UserRepository = RepositoryFactory.get("user");
 
@@ -8,10 +9,10 @@ export const getUserInfo = async () => {
     return err.response;
   });
   if (res.status !== 200) {
-    console.warn("ユーザー情報の取得に失敗しました");
+    log.warn("ユーザー情報の取得に失敗しました");
     throw new Error(res);
   }
-  console.info("ユーザー情報の取得に成功しました");
-  console.table(res.data);
+  log.info("ユーザー情報の取得に成功しました");
+  log.info(res.data);
   return res.data.data;
 };

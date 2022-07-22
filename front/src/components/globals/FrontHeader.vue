@@ -5,53 +5,35 @@
       <v-app-bar app clipped color="white">
         <v-toolbar-title class="top__title">
           <router-link to="/">
-            <img
-              class="top__logo"
-              src="@/assets/images/logos/logo-light.png"
-            /> </router-link
-        ></v-toolbar-title>
+            <img class="top__logo" src="@/assets/images/logos/logo-light.png" />
+          </router-link>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
         <div class="top__tabmenu">
           <!-- ログインボタン -->
           <v-btn class="top__tabbutton white" text to="/signin">{{
-            navItems.signin.value
+              navItems.signin.value
           }}</v-btn>
 
           <!-- 新規会員登録ボタン -->
-          <v-btn
-            class="top__tabbutton top__tabbutton--margin primary white--text"
-            text
-            to="/signup"
-            >{{ navItems.signup.value }}</v-btn
-          >
+          <v-btn class="top__tabbutton top__tabbutton--margin primary white--text" text to="/signup">{{
+              navItems.signup.value
+          }}</v-btn>
         </div>
 
         <!-- ハンバーガーメニューアイコン -->
-        <v-app-bar-nav-icon
-          @click.stop="onClick_HamburgerIcon"
-        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="onClick_HamburgerIcon"></v-app-bar-nav-icon>
       </v-app-bar>
     </div>
 
     <!-- ハンバーガーメニュー(サイドドロワー) -->
     <div class="drawer">
-      <v-navigation-drawer
-        app
-        clipped
-        mobile-breakpoint="99999"
-        v-model="isVisible"
-        hide-overlay
-        right
-        max-width="300px"
-        color="white"
-      >
+      <v-navigation-drawer app clipped mobile-breakpoint="99999" v-model="isVisible" hide-overlay right
+        max-width="300px" color="white">
         <v-list nav dense>
-          <v-list-item-group
-            v-model="selectedMenuNumber"
-            active-class="cyan--text text--accent-4"
-          >
+          <v-list-item-group v-model="selectedMenuNumber" active-class="cyan--text text--accent-4">
             <!-- ドロワー内のコンテンツを表示 -->
             <!-- クローズボタン -->
             <div class="text-right my-3">
@@ -63,22 +45,18 @@
             <!-- ロゴ -->
             <div class="drawer__logo--wraper ml-2 mb-3">
               <a href="/">
-                <img
-                  class="drawer__logo--img"
-                  src="@/assets/images/logos/logo-light.png"
-                  alt=""
-                />
+                <img class="drawer__logo--img" src="@/assets/images/logos/logo-light.png" alt="" />
               </a>
             </div>
 
             <!-- 会員登録ボタン -->
             <v-btn class="primary mb-4" dark width="100%" to="/signup">{{
-              navItems.signup.value
+                navItems.signup.value
             }}</v-btn>
 
             <!-- ログインボタン -->
             <v-btn class="drawer__btn--outline" width="100%" to="/signin">{{
-              navItems.signin.value
+                navItems.signin.value
             }}</v-btn>
           </v-list-item-group>
         </v-list>
@@ -108,7 +86,7 @@ export default {
       /*      
       // ヘッダーの高さを取得
       headerHeight = $(".v-app-bar").height();
-      console.log(
+       log.log(
         "ハンバーガーアイコンクリック時のヘッダーのHeight",
         headerHeight
       );
@@ -142,19 +120,21 @@ export default {
 // VuetifyのclassStyleを変更(クラス名は開発者ツールから調べられる)
 // -------------------------------------------------------------------------
 .v-toolbar__title {
-  font-size: $font-size-title !important;
+  font-size: $font-size-title  !important;
   overflow: visible !important;
   margin-right: rem(20) !important;
 }
 
 .v-btn {
   $padding-leftright: rem(30);
-  padding-left: $padding-leftright !important;
-  padding-right: $padding-leftright !important;
+  padding-left: $padding-leftright  !important;
+  padding-right: $padding-leftright  !important;
 }
+
 .v-btn--is-elevated {
   box-shadow: none !important;
 }
+
 .v-btn--active::before {
   opacity: 0 !important;
 }
@@ -162,8 +142,10 @@ export default {
 .v-app-bar {
   white-space: nowrap;
 }
+
 .v-app-bar__nav-icon {
   display: block !important;
+
   @include tab {
     display: none !important;
   }
@@ -171,6 +153,7 @@ export default {
 
 .v-tabs {
   display: none !important;
+
   @include tab {
     display: block !important;
   }
@@ -186,41 +169,50 @@ export default {
 .top {
   text-align: left;
 }
+
 .top__logo {
   max-height: rem(35);
   margin-top: rem(14);
   margin-left: rem(10);
   width: 100%;
-  object-fit: contain; /* 画像縦横比を維持したまま、heightに対してリサイズする(ブロックに対してではない) */
+  object-fit: contain;
+  /* 画像縦横比を維持したまま、heightに対してリサイズする(ブロックに対してではない) */
 }
+
 .top__title {
   font-family: "Inter", sans-serif;
 }
+
 .top__tabmenu {
   display: none;
+
   @include tab {
     display: block;
   }
 }
-.top__tabbutton {
-}
+
+.top__tabbutton {}
+
 .top__tabbutton--margin {
   margin-right: rem(10);
 }
 
 .drawer {
   display: block;
+
   @include tab {
     display: none;
   }
 }
-.drawer__logo--wraper {
-}
+
+.drawer__logo--wraper {}
+
 .drawer__logo--img {
   max-height: rem(28);
 }
+
 .drawer__btn--outline {
-  color: $color-gray !important;
+  color: $color-gray  !important;
   border: 1.4px solid $color-gray;
 }
 </style>
